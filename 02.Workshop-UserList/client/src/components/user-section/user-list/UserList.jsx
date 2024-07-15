@@ -1,14 +1,21 @@
+import Spinner from "../../spinner/Spinner";
 import UserListItem from "./user-list-item/UserListItem";
 import PropTypes from "prop-types";
 
 UserList.propTypes = {
   users: PropTypes.array,
+  isLoading: PropTypes.func,
+  onShowUserDetails: PropTypes.func,
+  userDeleteClickHandler: PropTypes.func,
+
 };
 
-export default function UserList({ users }) {
+export default function UserList({ users, isLoading, onShowUserDetails, userDeleteClickHandler }) {
   return (
     <div className="table-wrapper">
       {/* <!-- Overlap components  --> */}
+
+      {isLoading && <Spinner />}
 
       {/* <div className="loading-shade"> */}
       {/* <!-- Loading spinner  --> */}
@@ -115,7 +122,7 @@ export default function UserList({ users }) {
         </thead>
         <tbody>
           {users.map((user) => (
-            <UserListItem key={user._id} user={user} />
+            <UserListItem key={user._id} user={user} onShowUserDetails={onShowUserDetails} userDeleteClickHandler={userDeleteClickHandler} />
           ))}
 
         </tbody>
